@@ -17,14 +17,19 @@ function App() {
     }  
   }
   
-const handleClickSend = async () => {
-  const weiAmount = ethers.utils.parseEther(eth2Send)
-  try {
-  await web3State.signer.sendTransaction({ to: address, value: weiAmount })
-  } catch (e) {
-    console.log(e)
+  const handleClickSend = async () => {
+    const weiAmount = ethers.utils.parseEther(eth2Send)
+    try {
+      const tx = await web3State.signer.sendTransaction({
+        to: address,
+        value: weiAmount,
+      })
+      await tx.wait()
+      console.log('TX MINED')
+    } catch (e) {
+      console.log(e)
+    }
   }
-}
 
   return (
     <>
